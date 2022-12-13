@@ -2,16 +2,16 @@ import Head from "next/head";
 import styles from "../styles/Home.module.scss";
 import MovieCard from "./components/MovieCard";
 
-export default function Home({movies}) {
+const NowPlaying = ({movies}) => {
   return (
     <>
       <div>
         <Head>
-          <title>Popular Movies</title>
+          <title>Now Playing Movies</title>
         </Head>
 
         <main className={styles.popular}>
-          <h2>Popular Movies</h2>
+          <h2>Now Playing Movies</h2>
           <div className={styles["popular-inner"]}> 
           {movies?.results?.map((item) => (
             <MovieCard item={item} />
@@ -27,7 +27,7 @@ export default function Home({movies}) {
 
 export async function getStaticProps() {
   const response = await fetch(
-    `https://api.themoviedb.org/3/movie/popular?api_key=8c378a876f91566d43c84472aceb9f08&language=en-US&page=1`
+    `https://api.themoviedb.org/3/movie/now_playing?api_key=8c378a876f91566d43c84472aceb9f08&language=en-US&page=1`
   );
   const movies = await response.json();
 
@@ -37,3 +37,5 @@ export async function getStaticProps() {
     },
   };
 }
+
+export default NowPlaying;
